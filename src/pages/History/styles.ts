@@ -60,3 +60,30 @@ export const HistoryList = styled.div`
     }
   }
 `
+
+/// objeto das cores
+const STATUS_COLORS = {
+  yellow: 'yellow-500',
+  green: 'green-500',
+  red: 'red-500',
+} as const // Ts quando ler esse objeto, as propriedades[yellow-500 ...] para ele é string
+// Para informar para o ts que são vão ser qualquer uma dessas propriedades. dai passamos o (as const)
+
+interface StatusProps {
+  statusColor: keyof typeof STATUS_COLORS
+  // informando que as cores do statusColor serão da STATUS_COLORS
+}
+
+export const Status = styled.span<StatusProps>`
+  display: Flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  &::before {
+    content: '';
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: ${(props) => props.theme[STATUS_COLORS[props.statusColor]]};
+  }
+`
